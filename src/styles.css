@@ -1,3 +1,151 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+body {
+  font-family: 'Tajawal', sans-serif;
+}
+
+/* ================= CUSTOM SCROLLBAR ================= */
+
+/* 1. Scrollbar Width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* 2. Scrollbar Track (Dark Background) */
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+/* 3. Scrollbar Handle (Grey Default State) */
+::-webkit-scrollbar-thumb {
+  background-color: #3f3f46;
+  border-radius: 9999px;
+  border: 2px solid #09090b;
+  /* Creates nice padding around the handle */
+  transition: background-color 0.2s ease;
+}
+
+/* 4. Scrollbar Handle on Hover (Vibrant Orange) */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #f97316;
+}
+
+/* Firefox Support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3f3f46 #09090b;
+}
+
+.btn-primary {
+  cursor: pointer;
+  padding-inline: calc(var(--spacing) * 8);
+  padding-block: calc(var(--spacing) * 4);
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-white);
+  transition-property: all;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+  --tw-duration: .3s;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  border-radius: 3.40282e38px;
+  justify-content: center;
+  align-items: center;
+  transition-duration: .3s;
+  display: inline-flex;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  cursor: pointer;
+  padding-inline: calc(var(--spacing) * 8);
+  padding-block: calc(var(--spacing) * 4);
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-white);
+  transition-property: all;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+  --tw-duration: .3s;
+  background-color: #0000;
+  border: 1px solid #333;
+  border-radius: 3.40282e38px;
+  justify-content: center;
+  align-items: center;
+  transition-duration: .3s;
+  display: inline-flex;
+}
+
+.btn-secondary:hover {
+  color: #f97316;
+  background-color: #f973161a;
+  border-color: #f97316;
+}
+
+.glass-card {
+  border-radius: var(--radius-3xl);
+  -webkit-backdrop-filter: blur(20px);
+  background: #161616cc;
+  border: 1px solid #262626;
+}
+
+.gradient-text {
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(135deg, #f97316, #fbbf24);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.section-title {
+  font-size: var(--text-4xl);
+  line-height: var(--tw-leading, var(--text-4xl--line-height));
+  --tw-leading: var(--leading-tight);
+  line-height: var(--leading-tight);
+  --tw-font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+}
+
+@media (min-width: 48rem) {
+  .section-title {
+    font-size: var(--text-5xl);
+    line-height: var(--tw-leading, var(--text-5xl--line-height));
+  }
+}
+
+@media (min-width: 64rem) {
+  .section-title {
+    font-size: var(--text-6xl);
+    line-height: var(--tw-leading, var(--text-6xl--line-height));
+  }
+}
+
+.section-subtitle {
+  margin-top: calc(var(--spacing) * 4);
+  font-size: var(--text-lg);
+  line-height: var(--tw-leading, var(--text-lg--line-height));
+  --tw-leading: var(--leading-relaxed);
+  line-height: var(--leading-relaxed);
+  color: var(--color-neutral-400);
+}
+.input-dark {
+  background-color: #161616;
+  border: 1px solid #262626;
+  border-radius: 0.75rem;
+  color: #ffffff;
+  outline: none;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+.input-dark::placeholder {
+  color: #737373;
+}
+.input-dark:focus {
+  border-color: rgba(249, 115, 22, 0.5);
+  box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.25);
+}

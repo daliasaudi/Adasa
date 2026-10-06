@@ -1,0 +1,108 @@
+<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-[#0a0a0a]/95 backdrop-blur-xl">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+
+      <!-- Logo & Brand -->
+      <a routerLink="/src/app/home/" class="flex items-center gap-3 group">
+        <div class="cursor-pointer transition-all duration-300 group-hover:scale-105">
+          <img src="images/imgi_1_logo-GdqARQRt.png" alt="Logo" class="w-12 h-12 ">
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-bold bg-gradient-to-r from-white to-neutral-300 bg-clip-text text-transparent">
+            عدسة
+          </span>
+          <span class="text-xs text-orange-400/80 hidden sm:block tracking-wide">
+            عالم التصوير الفوتوغرافي
+          </span>
+        </div>
+      </a>
+
+      <!-- Center Pill Links (Desktop) -->
+      <div class="hidden md:flex items-center">
+        <div class="flex items-center  bg-[#161616] rounded-full p-1.5 border border-[#262626]">
+          <a routerLink="/" 
+             routerLinkActive="!bg-gradient-to-r !from-orange-500 !to-orange-600 !text-white !shadow-md !shadow-orange-500/20" 
+            [routerLinkActiveOptions]="{ exact: true }"
+             class="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 text-neutral-400 hover:text-white">
+            الرئيسية
+          </a>
+
+          <a routerLink="/blog" 
+             routerLinkActive="!bg-gradient-to-r !from-orange-500 !to-orange-600 !text-white !shadow-md !shadow-orange-500/20"
+             class="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 text-neutral-400 hover:text-white">
+            المدونة
+          </a>
+
+          <a routerLink="/about" 
+             routerLinkActive="!bg-gradient-to-r !from-orange-500 !to-orange-600 !text-white !shadow-md !shadow-orange-500/20"
+             class="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 text-neutral-400 hover:text-white">
+            من نحن
+          </a>
+        </div>
+      </div>
+
+      <!-- Search & CTA Button (Desktop) -->
+      <div class="hidden md:flex items-center gap-3">
+        <button class="p-3 text-neutral-500 hover:text-orange-500 hover:bg-[#161616] rounded-xl transition-all duration-300 border border-transparent hover:border-[#262626] cursor-pointer">
+          <i class="fa-solid fa-magnifying-glass text-lg"></i>
+        </button>
+
+        <a routerLink="/src/app/blog/" 
+           class="btn-primary text-sm">
+          ابدأ القراءة
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button 
+        (click)="toggleMobileMenu()"
+        class="md:hidden p-3 text-neutral-400 hover:text-white hover:bg-[#161616] rounded-xl transition-all duration-300 border border-transparent hover:border-[#262626] cursor-pointer">
+        @if (!isMobileMenuOpen) {
+          <i class="fa-solid fa-bars text-xl"></i>
+        } @else {
+          <i class="fa-solid fa-xmark text-xl"></i>
+        }
+      </button>
+
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div 
+      [class.max-h-96]="isMobileMenuOpen" 
+      [class.max-h-0]="!isMobileMenuOpen"
+      class="md:hidden overflow-hidden transition-all duration-500 ease-in-out">
+      <div class="bg-[#161616] backdrop-blur-xl rounded-2xl p-4 border border-[#262626] mb-4">
+        <div class="flex flex-col space-y-1">
+          <a routerLink="/src/app/home/" 
+             (click)="closeMobileMenu()"
+             routerLinkActive="bg-orange-500/10 text-orange-500 border border-orange-500/30" 
+            
+             class="px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 text-neutral-400 hover:bg-[#1a1a1a] hover:text-white">
+            الرئيسية
+          </a>
+
+          <a routerLink="/src/app/blog/" 
+             (click)="closeMobileMenu()"
+             routerLinkActive="bg-orange-500/10 text-orange-500 border border-orange-500/30"
+             class="px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 text-neutral-400 hover:bg-[#1a1a1a] hover:text-white">
+            المدونة
+          </a>
+
+          <a routerLink="/src/app/about/" 
+             (click)="closeMobileMenu()"
+             routerLinkActive="bg-orange-500/10 text-orange-500 border border-orange-500/30"
+             class="px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 text-neutral-400 hover:bg-[#1a1a1a] hover:text-white">
+            من نحن
+          </a>
+
+          <a routerLink="/src/app/blog/" 
+             (click)="closeMobileMenu()"
+             class="bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium px-4 py-3 rounded-xl text-sm text-center mt-2 shadow-lg shadow-orange-500/25">
+            ابدأ القراءة
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>

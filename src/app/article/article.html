@@ -1,0 +1,321 @@
+@if (currentPost) {
+<article class="bg-[#0a0a0a] min-h-screen text-neutral-300">
+
+  <!-- ================= Hero section ================= -->
+  <div class="relative h-[60vh] min-h-[520px] overflow-hidden">
+    <!-- صورة الغلاف -->
+    <img [src]="currentPost.image" [alt]="currentPost.title" class="absolute inset-0 w-full h-full object-cover" />
+
+    <!-- gradient shadow-->
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/40 to-transparent"></div>
+
+    <div class="absolute top-24 right-4 sm:right-8 left-4 sm:left-8 z-10">
+      <nav
+        class="inline-flex items-center gap-2 px-4 py-2 bg-black/40 backdrop-blur-md rounded-full text-sm border border-white/10 shadow-lg">
+        <a routerLink="/" class="text-white/70 hover:text-white transition-colors">
+          <i class="fa-solid fa-house"></i>
+        </a>
+        <i class="fa-solid fa-chevron-left text-white/30 text-xs"></i>
+        <a routerLink="/blog" class="text-white/70 hover:text-white transition-colors">
+          المدونة
+        </a>
+        <i class="fa-solid fa-chevron-left text-white/30 text-xs"></i>
+        <span class="text-orange-400 font-medium truncate max-w-[200px]">
+          {{ currentPost.category }}
+        </span>
+      </nav>
+    </div>
+
+    <!-- article and author info -->
+    <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-12">
+      <div class="max-w-5xl mx-auto">
+
+        <div class="flex flex-wrap items-center gap-4 mb-6">
+          <span
+            class="px-4 py-1.5 bg-orange-500 text-white text-sm font-bold rounded-full shadow-lg shadow-orange-500/20">
+            {{ currentPost.category }}
+          </span>
+          <div class="flex items-center gap-4 text-white/80 text-sm">
+            <span class="flex items-center gap-2">
+              <i class="fa-regular fa-calendar"></i>
+              {{ currentPost.date }}
+            </span>
+            <span class="flex items-center gap-2">
+              <i class="fa-regular fa-clock"></i>
+              {{ currentPost.readTime }}
+            </span>
+          </div>
+        </div>
+
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight max-w-4xl tracking-tight">
+          {{ currentPost.title }}
+        </h1>
+
+        <div
+          class="flex items-center gap-4 p-3.5 px-5 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 w-fit">
+          <img [src]="currentPost.author.avatar" [alt]="currentPost.author.name"
+            class="w-12 h-12 rounded-full object-cover ring-2 ring-orange-500/50" />
+          <div>
+            <p class="font-bold text-white text-base">{{ currentPost.author.name }}</p>
+            <p class="text-xs text-white/60">{{ currentPost.author.role }}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= Main article body  ================= -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid lg:grid-cols-[1fr_320px] gap-12">
+
+      <div class="order-2 lg:order-1">
+        <div
+          class="p-6 bg-gradient-to-r from-orange-500/10 via-orange-500/5 to-transparent rounded-2xl border border-orange-500/20 mb-10">
+          <p class="text-lg md:text-xl text-neutral-200 leading-relaxed italic">
+            "{{ currentPost.excerpt }}"
+          </p>
+        </div>
+
+        <!-- intro-->
+        @if (introText) {
+        <p class="text-neutral-300 leading-relaxed text-lg mb-8 whitespace-pre-line">
+          {{ introText }}
+        </p>
+        }
+
+        <!-- titles-->
+        <div class="space-y-10 mb-12">
+          @for (sec of articleSections; track sec.id) {
+          <div [id]="sec.id" class="scroll-mt-32">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 flex items-center gap-3">
+              <span
+                class="flext items-center justify-center w-10 h-10 bg-orange-500/10 rounded-xl border border-orange-500/30">
+                <i class="fa-solid fa-camera text-orange-500 "></i>
+              </span>
+              <span>{{ sec.heading }}</span>
+            </h2>
+            <p class="text-neutral-300 leading-relaxed text-lg whitespace-pre-line">
+              {{ sec.body }}
+            </p>
+          </div>
+          }
+        </div>
+
+        <!-- Tags -->
+        <div class="mt-14 p-6 bg-[#111111] rounded-2xl border border-[#262626]">
+          <div class="flex items-center gap-3 mb-4">
+            <div
+              class="w-10 h-10 bg-orange-500/10 rounded-xl flex items-center justify-center border border-orange-500/30">
+              <i class="fa-solid fa-tags text-orange-500"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg">الوسوم</h3>
+          </div>
+          <div class="flex flex-wrap gap-2.5">
+            @for (tag of currentPost.tags; track tag) {
+            <span
+              class="px-4 py-2 bg-[#1a1a1a] text-neutral-400 text-sm rounded-full border border-[#262626] hover:border-orange-500/50 hover:text-orange-500 transition-colors cursor-pointer">
+              #{{ tag }}
+            </span>
+            }
+          </div>
+        </div>
+
+        <!-- social media buttons -->
+        <div class="mt-6 p-6 bg-[#111111] rounded-2xl border border-[#262626]">
+          <div class="flex items-center justify-between flex-wrap gap-4">
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 bg-orange-500/10 rounded-xl flex items-center justify-center border border-orange-500/30">
+                <i class="fa-solid fa-share-nodes text-orange-500"></i>
+              </div>
+              <h3 class="font-bold text-white text-lg">شارك المقال</h3>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <a [href]="'https://twitter.com/intent/tweet?text=' + shareTitle + '&url=' + shareUrl" target="_blank"
+                rel="noopener noreferrer"
+                class="w-11 h-11 bg-[#1a1a1a] border border-[#262626] rounded-xl flex items-center justify-center text-neutral-400 hover:bg-[#1da1f2] hover:text-white hover:border-transparent transition-all duration-300">
+                <i class="fa-brands fa-x-twitter"></i>
+              </a>
+              <a [href]="'https://www.linkedin.com/sharing/share-offsite/?url=' + shareUrl" target="_blank"
+                rel="noopener noreferrer"
+                class="w-11 h-11 bg-[#1a1a1a] border border-[#262626] rounded-xl flex items-center justify-center text-neutral-400 hover:bg-[#0077b5] hover:text-white hover:border-transparent transition-all duration-300">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
+              <a [href]="'https://api.whatsapp.com/send?text=' + shareTitle + '%20' + shareUrl" target="_blank"
+                rel="noopener noreferrer"
+                class="w-11 h-11 bg-[#1a1a1a] border border-[#262626] rounded-xl flex items-center justify-center text-neutral-400 hover:bg-[#25d366] hover:text-white hover:border-transparent transition-all duration-300">
+                <i class="fa-brands fa-whatsapp"></i>
+              </a>
+              <button type="button" (click)="copyLink()"
+                class="relative w-11 h-11 bg-[#1a1a1a] border border-[#262626] rounded-xl flex items-center justify-center text-neutral-400 hover:bg-orange-500 hover:text-white hover:border-transparent transition-all duration-300 cursor-pointer">
+                <i class="fa-solid" [class.fa-check]="copied" [class.fa-link]="!copied"></i>
+                @if (copied) {
+                <span
+                  class="absolute -top-9 right-1/2 translate-x-1/2 px-2.5 py-1 bg-orange-500 text-white text-xs font-semibold rounded-lg shadow-lg whitespace-nowrap">
+                  تم النسخ!
+                </span>
+                }
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Author Info -->
+        <div class="mt-6 p-8 bg-gradient-to-br from-[#161616] to-[#111111] rounded-2xl border border-[#262626]">
+          <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+            <img [src]="currentPost.author.avatar" [alt]="currentPost.author.name"
+              class="w-24 h-24 rounded-2xl object-cover ring-4 ring-orange-500/20 shrink-0" />
+            <div class="text-center sm:text-right flex-1">
+              <span class="text-xs text-orange-500 font-semibold uppercase tracking-wider">كاتب المقال</span>
+              <h3 class="text-xl font-bold text-white mt-1">{{ currentPost.author.name }}</h3>
+              <p class="text-neutral-500 text-sm mb-3">{{ currentPost.author.role }}</p>
+              <p class="text-neutral-400 text-sm leading-relaxed">
+                مصور محترف شغوف بمشاركة المعرفة والخبرات في عالم التصوير الفوتوغرافي.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="order-1 lg:order-2 lg:sticky lg:top-24 self-start">
+        <div class="space-y-6">
+          <!-- Table of Contents -->
+          <div class="p-6 bg-[#111111] rounded-2xl border border-[#262626]">
+            <div class="flex items-center gap-3 mb-5">
+              <div
+                class="w-10 h-10 bg-orange-500/10 rounded-xl flex items-center justify-center border border-orange-500/30">
+                <i class="fa-solid fa-list text-orange-500"></i>
+              </div>
+              <h3 class="font-bold text-white">محتويات المقال</h3>
+            </div>
+            <nav class="space-y-2">
+              @for (sec of articleSections; track sec.id; let i = $index) {
+              <button type="button" (click)="scrollToSection(sec.id)"
+                class="w-full flex items-center gap-3 p-3 rounded-xl text-neutral-400 hover:text-orange-500 hover:bg-orange-500/5 transition-all duration-300 cursor-pointer group">
+                <span
+                  class="flex items-center justify-center w-6 h-6 bg-[#1a1a1a] rounded-lg text-xs font-bold text-neutral-500 group-hover:text-orange-500 transition-colors">
+                  {{ i + 1 }}
+                </span>
+                <span class="text-sm font-medium line-clamp-1">{{ sec.heading }}</span>
+              </button>
+              }
+            </nav>
+          </div>
+
+          <!-- Quick Info Card -->
+          <div class="p-6 bg-[#111111] rounded-2xl border border-[#262626]">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="text-center p-4 bg-[#0a0a0a] rounded-xl border border-[#1f1f1f]">
+                <i class="fa-regular fa-clock text-orange-500 text-xl mb-2 block"></i>
+                <p class="text-white font-bold text-sm">{{ currentPost.readTime }}</p>
+                <p class="text-neutral-500 text-xs mt-0.5">وقت القراءة</p>
+              </div>
+              <div class="text-center p-4 bg-[#0a0a0a] rounded-xl border border-[#1f1f1f]">
+                <i class="fa-regular fa-calendar text-orange-500 text-xl mb-2 block"></i>
+                <p class="text-white font-bold text-sm">{{ formatDate(currentPost.date) }}</p>
+                <p class="text-neutral-500 text-xs mt-0.5">تاريخ النشر</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Newsletter Box -->
+          <div class="p-6 bg-gradient-to-br from-orange-500/10 to-yellow-500/5 rounded-2xl border border-orange-500/20">
+            <div class="text-center">
+              <div
+                class="w-14 h-14 bg-orange-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-orange-500/30">
+                <i class="fa-solid fa-envelope text-orange-500 text-xl"></i>
+              </div>
+              <h3 class="font-bold text-white mb-2 text-lg">لا تفوّت جديدنا</h3>
+              <p class="text-neutral-400 text-sm mb-5 leading-relaxed">اشترك للحصول على أحدث المقالات</p>
+              <a routerLink="/blog"
+                class="block w-full py-3 bg-orange-500 text-white font-semibold rounded-xl hover:bg-orange-600 transition-colors text-center shadow-lg shadow-orange-500/20">
+                تصفح المزيد
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- ================= Related Articles Section ================= -->
+    <div class="mt-20 pt-12 border-t border-[#262626]">
+      <div class="flex items-center justify-between mb-10">
+        <div class="flex items-center gap-4">
+          <span
+            class="w-12 h-12 bg-orange-500/10 rounded-2xl flex items-center justify-center border border-orange-500/30">
+            <i class="fa-solid fa-images text-orange-500 text-xl"></i>
+          </span>
+          <div>
+            <h2 class="text-2xl font-bold text-white">مقالات قد تعجبك</h2>
+            <p class="text-neutral-500 text-sm">استكشف المزيد من المحتوى المميز</p>
+          </div>
+        </div>
+
+        <a routerLink="/blog"
+          class="hidden sm:flex items-center gap-2 text-orange-500 hover:text-orange-400 font-medium transition-colors group">
+          <span>عرض الكل</span>
+          <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+        </a>
+      </div>
+
+      <!-- Related Articles -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (rel of relatedPosts; track rel.id) {
+        <a [routerLink]="['/blog', rel.slug]"
+          class="group relative bg-[#111111] rounded-2xl overflow-hidden border border-[#262626] hover:border-orange-500/40 transition-all duration-500 flex flex-col cursor-pointer">
+
+          <div class="relative h-48 overflow-hidden">
+            <img [src]="rel.image" [alt]="rel.title"
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent"></div>
+            <span
+              class="absolute top-4 right-4 px-3 py-1 bg-orange-500 text-white text-xs font-bold rounded-full shadow-md">
+              {{ rel.category }}
+            </span>
+          </div>
+
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <h3
+              class="font-bold text-white text-lg group-hover:text-orange-500 transition-colors line-clamp-2 mb-4 leading-snug">
+              {{ rel.title }}
+            </h3>
+
+            <div class="flex items-center justify-between text-sm text-neutral-500 pt-3 border-t border-[#1f1f1f]">
+              <span class="flex items-center gap-2">
+                <img [src]="rel.author.avatar" [alt]="rel.author.name" class="w-6 h-6 rounded-full object-cover" />
+                <span class="text-neutral-400">{{ rel.author.name }}</span>
+              </span>
+              <span>{{ rel.readTime }}</span>
+            </div>
+          </div>
+
+        </a>
+        }
+      </div>
+    </div>
+  </div>
+</article>
+} @else {
+  <!-- Article Not Found -->
+<div class="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center text-center px-4 py-20">
+  <div class="w-20 h-20 bg-orange-500/10 border border-orange-500/30 rounded-3xl flex items-center justify-center mb-6">
+    <i class="fa-solid fa-triangle-exclamation text-3xl text-orange-500"></i>
+  </div>
+  <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">المقال غير موجود</h1>
+  <p class="text-neutral-400 text-base max-w-md mb-8">
+    عذراً، لم نتمكن من العثور على المقال المطلوب.
+  </p>
+  <a routerLink="/blog"
+    class="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg shadow-orange-500/25">
+    العودة إلى المدونة
+  </a>
+</div>
+}
